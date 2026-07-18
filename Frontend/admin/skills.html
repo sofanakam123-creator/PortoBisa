@@ -1,0 +1,57 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="header-section">
+    <h1>Manage Skills</h1>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">Tambah Skill Baru</h3>
+        <form method="POST" class="form-inline">
+            <input type="hidden" name="action" value="add">
+            <div class="form-group">
+                <input type="text" name="nama_skill" placeholder="Nama Skill (contoh: Python)" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="icon_class" placeholder="Icon Class (opsional, FontAwesome)">
+            </div>
+            <button type="submit" class="btn btn-success">Tambah Skill</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Skill</th>
+                    <th>Icon Class</th>
+                    <th width="150">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for skill in skills %}
+                <tr>
+                    <td>{{ skill.id }}</td>
+                    <td>{{ skill.nama_skill }}</td>
+                    <td>{{ skill.icon_class }}</td>
+                    <td>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="skill_id" value="{{ skill.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus skill ini?')">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">Belum ada data skill.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

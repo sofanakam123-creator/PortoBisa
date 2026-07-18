@@ -1,0 +1,71 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="header-section">
+    <h1>Manage Projects</h1>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">Tambah Project Baru</h3>
+        <form method="POST" enctype="multipart/form-data" class="admin-form">
+            <input type="hidden" name="action" value="add">
+            <div class="form-group">
+                <label>Judul Project</label>
+                <input type="text" name="judul" required>
+            </div>
+            <div class="form-group">
+                <label>Deskripsi Project</label>
+                <textarea name="deskripsi" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Link Project URL</label>
+                <input type="url" name="link_project">
+            </div>
+            <div class="form-group">
+                <label>Gambar Project</label>
+                <input type="file" name="gambar" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-success mt-3">Tambah Project</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Gambar</th>
+                    <th>Judul</th>
+                    <th>Link</th>
+                    <th width="150">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proj in projects %}
+                <tr>
+                    <td>
+                        {% if proj.gambar_url %}
+                        <img src="{{ proj.gambar_url }}" alt="Project image" style="height:50px; border-radius:4px;">
+                        {% endif %}
+                    </td>
+                    <td>{{ proj.judul }}</td>
+                    <td>{% if proj.link_project %}<a href="{{ proj.link_project }}" target="_blank">Link</a>{% endif %}</td>
+                    <td>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="project_id" value="{{ proj.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus project ini?')">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">Belum ada data project.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

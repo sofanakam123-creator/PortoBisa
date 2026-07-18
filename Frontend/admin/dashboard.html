@@ -1,0 +1,31 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="header-section">
+    <h1>Dashboard</h1>
+    <p>Selamat datang di Admin Panel, {{ session['username'] }}!</p>
+</div>
+
+<div class="stats-container">
+    <div class="stat-card">
+        <div class="stat-icon bg-primary">📊</div>
+        <div class="stat-details">
+            <h3>Total Projects</h3>
+            <p class="stat-number">{{ stats.projects }}</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon bg-success">💻</div>
+        <div class="stat-details">
+            <h3>Total Skills</h3>
+            <p class="stat-number">{{ stats.skills }}</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon bg-warning">💼</div>
+        <div class="stat-details">
+            <h3>Total Experience</h3>
+            <p class="stat-number">{{ stats.experience }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Portfolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/base.css') }}?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="{{ url_for('admin_dashboard.dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('admin_profiles.profiles') }}">Profile</a></li>
+                    <li><a href="{{ url_for('admin_skills.skills') }}">Skills</a></li>
+                    <li><a href="{{ url_for('admin_experience.experience') }}">Experience</a></li>
+                    <li><a href="{{ url_for('admin_projects.projects') }}">Projects</a></li>
+                    <li><a href="{{ url_for('admin_login.logout') }}" class="text-danger logout-btn">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                  <li class="flash {{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+            
+            <div class="content-wrapper">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>
