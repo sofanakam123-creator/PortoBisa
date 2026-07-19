@@ -15,15 +15,27 @@ def index():
         
         try:
             r = resend.Emails.send({
-                "from": "Portfolio <onboarding@resend.dev>",
-                "to": "delivered@resend.dev",  # Using resend's testing email or replace with real
-                "subject": f"New Contact Message from {name}",
-                "html": f"<p><strong>Name:</strong> {name}</p><p><strong>Email:</strong> {email}</p><p><strong>Message:</strong><br>{message}</p>"
+                "from": "Portfolio Contact <onboarding@resend.dev>",
+                "to": "sofanakam123@gmail.com",
+                "subject": f"Pesan Baru dari {name} - Portfolio Contact",
+                "html": f"""
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+                    <h2 style="color: #8b5cf6; border-bottom: 2px solid #8b5cf6; padding-bottom: 10px;">Pesan Baru dari Portfolio</h2>
+                    <p><strong>Nama:</strong> {name}</p>
+                    <p><strong>Email:</strong> <a href="mailto:{email}">{email}</a></p>
+                    <p><strong>Pesan:</strong></p>
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 4px; margin-top: 5px;">
+                        {message}
+                    </div>
+                    <hr style="margin-top: 20px;">
+                    <p style="color: #999; font-size: 12px;">Pesan ini dikirim melalui form kontak di portfolio Anda.</p>
+                </div>
+                """
             })
-            flash('Your message has been sent successfully!', 'success')
+            flash('Pesan Anda berhasil terkirim! Terima kasih.', 'success')
         except Exception as e:
-            print(e)
-            flash('Failed to send message. Please try again later.', 'error')
+            print(f"Resend error: {e}")
+            flash('Gagal mengirim pesan. Silakan coba lagi nanti.', 'error')
             
         return redirect(url_for('utama.index') + '#contact')
 
